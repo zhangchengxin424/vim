@@ -1,24 +1,98 @@
+"vim-plug配置
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-easy-align'
+Plug 'valloric/youcompleteme'
+Plug 'tmhedberg/SimpylFold'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'scrooloose/syntastic'
+Plug 'nvie/vim-flake8'
+Plug 'jnurmine/Zenburn'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-fugitive'
+call plug#end()
+
+"基础设置
 :set numberwidth =2
-:set number
-:set relativenumber
-:imap df <Esc>
-:omap df <Esc>
-:map df <Esc>
-:cmap df <Esc>
+:set number "增加行号
+let mapleader = ","
+let maplocalleader = "-"
+set splitright
+set encoding=utf-8
+"优化python代码
+let python_highlight_all=1
+syntax on
+"折叠类和方法 
+set foldmethod=indent
+set foldlevel=99
+"设置外界复制
+set clipboard=unnamedplus
+"python文件设置
+au BufNewFile,BufRead *.py
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set textwidth=79
+set expandtab
+set autoindent
+set fileformat=unix
+filetype plugin on
+"将多余的空格标出
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+"语法高亮
+syntax enable
+syntax on
+
+"快捷键设置
+
+"设置退出的快捷键
+imap df <Esc>
+omap df <Esc>
+map df <Esc>
+cmap df <Esc>
+
+"设置所有括号的补全
 inoremap ( ()<Esc>i
 inoremap { {}<Esc>i
 inoremap [ []<Esc>i
 inoremap " ""<Esc>i
+inoremap < <><Esc>i
 imap ,, <Esc>la
+
+"切换分割窗口快捷键
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+"设置空格折叠
+nnoremap <space> za
+
+" <F8>打开varable
+nnoremap <silent> <F8> :TlistToggle<CR>
+
+"<F7>目录树
+map <F7> :NERDTreeToggle<CR>
+imap <F7> <ESC>:NERDTreeToggle<CR>
+"设置常规按键
 nnoremap z i<BS><Esc>l
 imap <c-u> <Esc>viwUi
-let mapleader = ","
 nnoremap <leader>d dd
-let maplocalleader = "\\"
-:nnoremap <leader>ev :split $MYVIMRC<cr>
-:nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 iabbrev @@ zhangchengxin424@163.com
 iabbrev MMM zhangchengxin
 nnoremap <leader>g G
 nnoremap <leader>4 $
-:nnoremap <leader>' viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a"<esc>bi"<esc>lel
+autocmd BufNewFile * :write
+autocmd FileType javascript nnoremap <buffer> <localleader>c I//<esc>
+autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+"插件设置
+
+"SimplyFlod设置
+let g:SimpylFold_docstring_preview=1
+"YoucompleteMe设置
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"Solarized改变主题
+call togglebg#map("<F5>")
